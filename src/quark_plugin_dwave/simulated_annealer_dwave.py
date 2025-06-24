@@ -7,7 +7,7 @@ from quark.interface_types import Other, Qubo
 
 
 @dataclass
-class SimulatedAnnealer(Core):
+class SimulatedAnnealerDwave(Core):
     """
     A module for solving a qubo problem using simulated annealing
 
