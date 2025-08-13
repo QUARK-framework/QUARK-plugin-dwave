@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import override
 
 import dwave_networkx as dnx
+import numpy as np
 from quark.core import Core, Data, Result
 from quark.interface_types import Graph, Other, Qubo
 
@@ -15,7 +16,7 @@ class TspQuboMappingDnx(Core):
     def preprocess(self, data: Graph) -> Result:
         self._graph = data.as_nx_graph()
         q = dnx.traveling_salesperson_qubo(self._graph)
-        return Data(Qubo.from_dict(q))
+        return Data(Qubo.from_dnx_qubo(q, len(data.as_adjacency_matrix())))
 
     @override
     def postprocess(self, data: Other) -> Result:

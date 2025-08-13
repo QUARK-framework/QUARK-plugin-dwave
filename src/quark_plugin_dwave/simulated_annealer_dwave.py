@@ -2,6 +2,8 @@ from dataclasses import dataclass
 from typing import override
 
 import dwave.samplers
+import numpy as np
+
 from quark.core import Core, Data, Result
 from quark.interface_types import Other, Qubo
 
@@ -29,7 +31,8 @@ class SimulatedAnnealerDwave(Core):
         #     return Data(None)
 
         device = dwave.samplers.SimulatedAnnealingSampler()
-        self._result = device.sample_qubo(data.as_dict(), num_reads=self.num_reads)
+        q = data.as_dnx_qubo()
+        self._result = device.sample_qubo(q, num_reads=self.num_reads)
         return Data(None)
 
     @override
